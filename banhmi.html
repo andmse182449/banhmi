@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello BanhMi - A Delicious Collision of East and West</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap");
+      :root {
+        /* Updated warm brown/orange color palette */
+        --primary-color: #8b4513; /* Saddle brown */
+        --secondary-color: #d2b48c; /* Tan */
+        --accent-color: #cd853f; /* Peru */
+        --text-dark: #2f1b14; /* Dark brown for text */
+        --text-light: #5d4e37; /* Olive drab for secondary text */
+        --bg-light: #faf0e6; /* Linen background */
+        --white: #ffffff;
+        --glass-bg: rgba(250, 240, 230, 0.9);
+        --glass-border: rgba(139, 69, 19, 0.3);
+        --shadow-soft: 0 8px 32px rgba(139, 69, 19, 0.1);
+        --shadow-medium: 0 15px 35px rgba(139, 69, 19, 0.15);
+        --shadow-strong: 0 25px 50px rgba(139, 69, 19, 0.25);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.7;
+        color: var(--text-dark);
+        background: linear-gradient(
+          135deg,
+          #f4e4bc 0%,
+          #deb887 50%,
+          #d2b48c 100%
+        );
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* --- Header --- */
+      header {
+        background: rgba(250, 240, 230, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      header.scrolled {
+        background: rgba(250, 240, 230, 0.98);
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-soft);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 0;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        transition: all 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.05);
+        color: var(--accent-color);
+      }
+
+      .logo img {
+        height: 2.8rem;
+        width: 2.8rem;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: var(--shadow-soft);
+        border: 2px solid var(--glass-border);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 0.5rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(139, 69, 19, 0.3);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-dark);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1001;
+      }
+
+      .mobile-menu-btn:hover {
+        color: var(--primary-color);
+        transform: scale(1.1);
+      }
+
+      main {
+        padding-top: 90px;
+      }
+
+      /* --- Section Styling --- */
+      .section {
+        padding: 6rem 0;
+        min-height: 80vh;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-header h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+      }
+
+      .section-header p {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* --- Home/Hero Section --- */
+      #home.section {
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero {
+        position: relative;
+        min-height: calc(100vh - 90px);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 30px;
+        margin: 2rem;
+        padding: 4rem;
+        overflow: hidden;
+        box-shadow: var(--shadow-medium);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23D2B48C;stop-opacity:0.3" /><stop offset="100%" style="stop-color:%23CD853F;stop-opacity:0.3" /></linearGradient></defs><rect fill="url(%23grad1)" width="1200" height="800"/><circle fill="%23ffffff" fill-opacity="0.1" cx="200" cy="150" r="120"/><circle fill="%23ffffff" fill-opacity="0.08" cx="800" cy="300" r="80"/><circle fill="%23ffffff" fill-opacity="0.06" cx="1000" cy="100" r="60"/><circle fill="%23ffffff" fill-opacity="0.04" cx="400" cy="600" r="100"/></svg>');
+        background-size: cover;
+        animation: floatBackground 20s ease-in-out infinite;
+        z-index: 1;
+      }
+
+      @keyframes floatBackground {
+        0%,
+        100% {
+          transform: translateY(0px) scale(1);
+        }
+        50% {
+          transform: translateY(-20px) scale(1.05);
+        }
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-image {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .hero-image img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: var(--shadow-strong);
+        transition: all 0.3s ease;
+        border: 3px solid var(--glass-border);
+      }
+
+      .hero-image img:hover {
+        transform: scale(1.05);
+      }
+
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 1s ease-out;
+        text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        color: var(--text-dark);
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+        animation: fadeInUp 1s ease-out 0.2s both;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        animation: fadeInUp 1s ease-out 0.4s both;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 10px 25px rgba(139, 69, 19, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(139, 69, 19, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(250, 240, 230, 0.8);
+        backdrop-filter: blur(10px);
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-secondary:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- Story Section --- */
+      .story-content {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        padding: 4rem;
+        border-radius: 30px;
+        box-shadow: var(--shadow-soft);
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+
+      .story-content p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        color: var(--text-dark);
+        text-align: justify;
+      }
+
+      /* --- Gallery Section --- */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .gallery-item {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-medium);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid var(--glass-border);
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: var(--shadow-strong);
+        border-color: var(--primary-color);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* --- Menu Section (Image Based) --- */
+      .menu-image-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+      }
+
+      .menu-image {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: var(--shadow-medium);
+        border: 2px solid var(--glass-border);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .menu-image:hover {
+        transform: scale(1.03);
+        box-shadow: var(--shadow-strong);
+        border-color: var(--primary-color);
+      }
+
+      /* --- Contact Form --- */
+      .contact-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .contact-form {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .contact-info {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        color: white;
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: var(--shadow-medium);
+      }
+
+      .contact-info h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .contact-item a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .contact-item a:hover {
+        color: var(--bg-light);
+      }
+
+      .contact-item i {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--glass-border);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        color: var(--text-dark);
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        background: white;
+        box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .btn-submit {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* --- Footer --- */
+      #contact.section {
+        padding-bottom: 0;
+      }
+
+      footer {
+        background: linear-gradient(
+          135deg,
+          rgba(47, 27, 20, 0.95),
+          rgba(93, 78, 55, 0.9)
+        );
+        color: white;
+        padding: 4rem 0 1.5rem;
+        border-radius: 30px 30px 0 0;
+        width: 100%;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-section h4 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+      }
+
+      .footer-section p,
+      .footer-section a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        line-height: 1.6;
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+      .footer-section li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section a:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .social-links a:hover {
+        transform: translateY(-2px) scale(1.1);
+        background: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--secondary-color)
+        );
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* --- Responsive Design --- */
+      @media (max-width: 992px) {
+        .nav-links {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background: rgba(250, 240, 230, 0.98);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+          transform: translateX(100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .nav-links.active {
+          transform: translateX(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .nav-links a {
+          font-size: 1.5rem;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 2rem;
+          padding: 3rem 2rem;
+        }
+
+        .hero-image {
+          order: -1;
+        }
+        
+        .hero-buttons {
+          justify-content: center;
+        }
+
+        .contact-section {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section {
+          padding: 4rem 0;
+        }
+        .section-header h2 {
+          font-size: 2.5rem;
+        }
+        .section-header p {
+          font-size: 1.1rem;
+        }
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+        .story-content {
+          padding: 2.5rem 1.5rem;
+        }
+        .logo {
+          font-size: 1.8rem;
+        }
+        .logo img {
+          height: 2.5rem;
+          width: 2.5rem;
+        }
+        .hero {
+          padding: 2rem 1.5rem;
+        }
+        .contact-form,
+        .contact-info {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 450px) {
+        .menu-image-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Scroll Animations */
+      .scroll-reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .scroll-reveal.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Success Message */
+      .success-message {
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        display: none;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .success-message.show {
+        display: block;
+        animation: slideInDown 0.5s ease-out;
+      }
+
+      @keyframes slideInDown {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <nav class="container">
+        <a href="#home" class="logo">
+          <img
+            src="https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751344001/t%E1%BA%A3i_xu%E1%BB%91ng_vhbmu1.jpg"
+            alt="Hello BanhMi Logo"
+          />
+          <span>Hello BanhMi</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li>
+            <a href="#home" class="nav-link active">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li>
+            <a href="#story" class="nav-link">
+              <i class="fas fa-book-open"></i> Story
+            </a>
+          </li>
+          <li>
+            <a href="#gallery" class="nav-link">
+              <i class="fas fa-images"></i> Gallery
+            </a>
+          </li>
+          <li>
+            <a href="#menu" class="nav-link">
+              <i class="fas fa-utensils"></i> Menu
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="nav-link">
+              <i class="fas fa-envelope"></i> Contact
+            </a>
+          </li>
+        </ul>
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Toggle Menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Home Section -->
+      <section id="home" class="section">
+        <div class="hero container">
+          <div class="hero-content">
+            <h1>A Delicious Collision of East and West</h1>
+            <p>
+              Where crispy French baguettes meet bold Vietnamese flavors. It's
+              comfort food, wrapped in paper, ready to go. Experience the
+              authentic taste of Vietnam with a modern twist at Hello BanhMi in
+              Crescent Heights.
+            </p>
+            <div class="hero-buttons">
+              <a href="#story" class="btn"
+                ><i class="fas fa-book-open"></i> Our Story</a
+              >
+              <a href="#contact" class="btn btn-secondary"
+                ><i class="fas fa-map-marker-alt"></i> Find Us</a
+              >
+            </div>
+          </div>
+          <div class="hero-image">
+            <img
+              id="heroCarousel"
+              src="https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751508922/DSCF3362-2_lxzdeh.jpg"
+              alt="Delicious Vietnamese Banh Mi at Hello BanhMi"
+            />
+          </div>
+        </div>
+      </section>
+      <script>
+        // Smooth hero image carousel with fade transition
+        document.addEventListener("DOMContentLoaded", function () {
+          const images = [
+        "https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751508922/DSCF3393-2_mwe96d.jpg",
+        "https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751508952/DSCF3317-2_t0rozu.jpg",
+        "https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751508946/DSCF3442-2_w66rzz.jpg",
+        "https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751508936/DSCF3434-2_hqxrz4.jpg",
+        "https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751508927/DSCF3401-2_fcwjpc.jpg"
+          ];
+          let idx = 0;
+          const imgEl = document.getElementById("heroCarousel");
+
+          // Add fade CSS if not present
+          if (!document.getElementById("hero-fade-style")) {
+        const style = document.createElement("style");
+        style.id = "hero-fade-style";
+        style.innerHTML = `
+          #heroCarousel {
+            transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+            opacity: 1;
+          }
+          #heroCarousel.fading {
+            opacity: 0;
+          }
+        `;
+        document.head.appendChild(style);
+          }
+
+          setInterval(() => {
+        imgEl.classList.add("fading");
+        setTimeout(() => {
+          idx = (idx + 1) % images.length;
+          imgEl.src = images[idx];
+          imgEl.onload = () => {
+            imgEl.classList.remove("fading");
+          };
+        }, 400); // fade out before changing image
+          }, 2500);
+        });
+      </script>
+
+      <!-- Story Section -->
+      <section id="story" class="section">
+        <div class="container">
+          <div class="section-header scroll-reveal">
+            <h2>Our Story</h2>
+          </div>
+          <div class="story-content scroll-reveal">
+            <p>
+              At Hello BanhMi, we believe a sandwich is never just a sandwich.
+              In Vietnam, bánh mì is more than a street food staple — it's a
+              cultural icon. A delicious collision of East and West, it's where
+              crispy French baguettes meet bold Vietnamese flavors like pickled
+              veggies, pâté, BBQ meats, fresh herbs, and fiery chili.
+            </p>
+            <p>
+              Bánh mì is what you grab on a busy morning, share with friends
+              after school, or take on a road trip — it's comfort food, wrapped
+              in paper, ready to go.
+            </p>
+            <p>
+              We grew up with it, and now we're bringing it to Crescent Heights
+              with a modern twist — pairing it with bubble tea, kimbap, coffee,
+              and even tanghulu (sugar-coated fruit on a stick!). Whether you're
+              Vietnamese or just bánh mì-curious, we're here to serve you
+              something delicious, fast, and full of heart.
+            </p>
+            <p
+              style="
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.2rem;
+                margin-top: 2rem;
+                color: var(--primary-color);
+              "
+            >
+              Come hungry. Leave happy.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section id="gallery" class="section">
+        <div class="container">
+          <div class="section-header scroll-reveal">
+            <h2>Image Gallery</h2>
+            <p>A few snapshots from inside Hello BanhMi.</p>
+          </div>
+          <div class="gallery-grid">
+            <div class="gallery-item scroll-reveal">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/660c6799052528251e60f065/f7447d06-c89b-4682-901d-5511b8178d85/Hello-Banh-Mi-2.jpg?format=2500w"
+                alt="A special banh mi sandwich at the shop"
+              />
+            </div>
+            <div class="gallery-item scroll-reveal">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/660c6799052528251e60f065/6a3e5c9a-5ff0-48e0-a548-52ccb2b291d3/Hello-Banh-Mi-12.jpg?format=2500w"
+                alt="The cozy interior of Hello BanhMi"
+              />
+            </div>
+            <div class="gallery-item scroll-reveal">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/660c6799052528251e60f065/08cf6721-e374-4b53-8356-82084c6790d9/Hello-Banh-Mi-3.jpg?format=2500w"
+                alt="A customer enjoying a fresh banh mi"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Menu Section -->
+      <section id="menu" class="section">
+        <div class="container">
+          <div class="section-header scroll-reveal">
+            <h2>Our Menu</h2>
+            <p>
+              Discover our signature flavors, from crispy Banh Mi to delicious
+              sides and refreshing drinks.
+            </p>
+          </div>
+          <div class="menu-image-container scroll-reveal">
+            <!-- NOTE: Replaced the Vietnamese menu images with placeholder photos from the page. -->
+            <!-- You should create and upload images of your actual English menu here. -->
+            <img
+              src="https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751534788/N%E1%BB%99i_dung_%C4%91o%E1%BA%A1n_v%C4%83n_b%E1%BA%A3n_c%E1%BB%A7a_b%E1%BA%A1n_twmtf8.png"
+              alt="A selection of our delicious Banh Mi"
+              class="menu-image"
+            />
+            <img
+              src="https://res.cloudinary.com/dcwyv9jsj/image/upload/v1751351593/2_urrpzv.png"
+              alt="Refreshing drinks and sides to complement your meal"
+              class="menu-image"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="section">
+        <div class="container">
+          <div class="section-header scroll-reveal">
+            <h2>Contact & Location</h2>
+            <p>We're always ready to listen. Visit us in Crescent Heights!</p>
+          </div>
+
+          <div class="contact-section scroll-reveal">
+            <!-- Contact Form -->
+            <div class="contact-form">
+              <h3
+                style="
+                  font-family: 'Playfair Display', serif;
+                  font-size: 1.8rem;
+                  margin-bottom: 2rem;
+                  color: var(--primary-color);
+                "
+              >
+                Send a Message
+              </h3>
+
+              <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i> Thank you! Your message has
+                been sent successfully. We will get back to you as soon as
+                possible.
+              </div>
+
+              <form id="contactForm">
+                <div class="form-group">
+                  <label for="name">Full Name *</label>
+                  <input type="text" id="name" name="name" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" />
+                </div>
+
+                <div class="form-group">
+                  <label for="subject">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    placeholder="e.g., Reservation, Feedback, Partnership..."
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message *</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell us what's on your mind..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-submit">
+                  <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+              </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+              <h3>Contact Information</h3>
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <strong>Address</strong><br />
+                  919E Centre St NW, Calgary, Alberta, T2E 2P6
+                </div>
+              </div>
+              <div style="margin: 1.5rem 0">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2507.838499299446!2d-114.06556108424614!3d51.0567992795635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53716f7b15d54c09%3A0xf62a66e5d80d4638!2sHello%20Banh%20Mi!5e0!3m2!1sen!2sca!4v1683833215123!5m2!1sen!2sca"
+                  width="100%"
+                  height="220"
+                  style="
+                    border: 0;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+                  "
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="Hello BanhMi Location on Google Maps"
+                ></iframe>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <strong>Phone</strong><br />
+                  <a href="tel:+14034538022">403-453-8022</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <strong>Email</strong><br />
+                  <a href="mailto:hellobanhmii@gmail.com"
+                    >hellobanhmii@gmail.com</a
+                  >
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <strong>Opening Hours</strong><br />
+                  Tuesday - Saturday: 10am - 8pm
+                </div>
+              </div>
+              <div style="margin-top: 2rem">
+                <strong>Follow Us</strong>
+                <div class="social-links" style="margin-top: 0.5rem">
+                  <a
+                    href="https://www.facebook.com/share/1JPLqdpMCh/?mibextid=wwXIfr"
+                    target="_blank"
+                    aria-label="Facebook"
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <a
+                    href="https://www.instagram.com/hellobanhmi.calgary?igsh=MXdoZGdhdnBhYm54cw%3D%3D&utm_source=qr"
+                    target="_blank"
+                    aria-label="Instagram"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                  <a
+                    href="https://www.tiktok.com/@hellobanhmi.calgary?_t=ZM-8xee1YVojnJ&_r=1"
+                    target="_blank"
+                    aria-label="Tiktok"
+                    ><i class="fab fa-tiktok"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h4>About Hello BanhMi</h4>
+          <p>
+            Bringing the authentic taste of Vietnamese banh mi, a delicate blend
+            of tradition and modernity, to Crescent Heights.
+          </p>
+          <div class="social-links">
+            <a
+              href="https://www.facebook.com/share/1JPLqdpMCh/?mibextid=wwXIfr"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/hellobanhmi.calgary?igsh=MXdoZGdhdnBhYm54cw%3D%3D&utm_source=qr"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@hellobanhmi.calgary?_t=ZM-8xee1YVojnJ&_r=1"
+              target="_blank"
+              aria-label="Tiktok"
+              ><i class="fab fa-tiktok"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#story">Story</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> 919E Centre St NW, Calgary,
+            Alberta, T2E 2P6<br />
+            <i class="fas fa-phone"></i>
+            <a
+              href="tel:+14034538022"
+              style="color: inherit; text-decoration: none"
+              >403-453-8022</a
+            ><br />
+            <i class="fas fa-envelope"></i>
+            <a
+              href="mailto:hellobanhmii@gmail.com"
+              style="color: inherit; text-decoration: none"
+              >hellobanhmii@gmail.com</a
+            >
+          </p>
+        </div>
+        <div class="footer-section">
+          <h4>Opening Hours</h4>
+          <p>
+            Tuesday - Saturday<br />
+            10:00 AM - 8:00 PM
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Hello BanhMi. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Header Scroll Effect ---
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 50) {
+            header.classList.add("scrolled");
+          } else {
+            header.classList.remove("scrolled");
+          }
+        });
+
+        // --- Mobile Menu Toggle ---
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const navLinks = document.getElementById("navLinks");
+        const navLinkItems = document.querySelectorAll(".nav-link");
+
+        mobileMenuBtn.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
+          // Toggle icon between bars and times (X)
+          const icon = mobileMenuBtn.querySelector("i");
+          if (icon.classList.contains("fa-bars")) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-times");
+          } else {
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-bars");
+          }
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinkItems.forEach((link) => {
+          link.addEventListener("click", () => {
+            if (navLinks.classList.contains("active")) {
+              navLinks.classList.remove("active");
+              mobileMenuBtn.querySelector("i").classList.remove("fa-times");
+              mobileMenuBtn.querySelector("i").classList.add("fa-bars");
+            }
+          });
+        });
+
+        // --- Active Nav Link on Scroll ---
+        const sections = document.querySelectorAll("section[id]");
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                document.querySelectorAll(".nav-links a").forEach((link) => {
+                  link.classList.remove("active");
+                  if (link.getAttribute("href") === `#${sectionId}`) {
+                    link.classList.add("active");
+                  }
+                });
+              }
+            });
+          },
+          { rootMargin: "-30% 0px -70% 0px" }
+        ); // Activates when the middle 40% of the section is visible
+
+        sections.forEach((section) => {
+          sectionObserver.observe(section);
+        });
+
+        // --- Scroll Reveal Animations ---
+        const revealElements = document.querySelectorAll(".scroll-reveal");
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target); // Optional: Stop observing after reveal
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        revealElements.forEach((el) => {
+          revealObserver.observe(el);
+        });
+
+        // --- Contact Form Submission ---
+        const contactForm = document.getElementById("contactForm");
+        const successMessage = document.getElementById("successMessage");
+
+        contactForm.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          // Here you would typically send the form data to a server.
+          // For this example, we'll just simulate a successful submission.
+
+          // Show the success message
+          successMessage.classList.add("show");
+
+          // Reset the form fields
+          contactForm.reset();
+
+          // Hide the success message after 5 seconds
+          setTimeout(() => {
+            successMessage.classList.remove("show");
+          }, 5000);
+        });
+      });
+    </script>
+  </body>
+</html>
